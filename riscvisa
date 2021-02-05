@@ -1,0 +1,89 @@
+#!/usr/bin/python3
+
+import os
+import sys
+import argparse
+from instructions import *
+
+
+def show_formats(isaformat):
+    if isaformat == 'all':
+        display_R()       
+        display_I()
+        display_S()
+        display_U()
+        display_B()
+        display_J()
+    elif isaformat == 'R':
+        display_R()
+    elif isaformat == 'I':
+        display_I()
+    elif isaformat == 'S':
+        display_S()
+    elif isaformat == 'U':
+        display_U()
+    elif isaformat == 'B':
+        display_B()
+    elif isaformat == 'J':
+        display_J()
+    else:
+        return
+
+def show_instruction(rinstruction):
+    print('\n')
+    eval(str("instruction_") + rinstruction)()
+
+formatlist = ["R", "I", "S", "U", "B", "J"]
+instructionlist = ['add','addi','addiw','addw','amoaddd','amoaddw','amoandd','amoandw','amomaxd', 'amomaxw', 'amomaxud',
+                    'amomaxuw', 'amomind', 'amominw', 'amominud', 'amominuw', 'amoord', 'amoorw', 'amoswapd', 'amoswapw', 
+                    'amoxord', 'amoxorw', 'and', 'andi', 'auipc', 'beq', 'beqz', 'bge', 'bgeu', 'bgez', 'bgt', 'bgtu', 'bgtz', 
+                    'ble', 'bleu', 'blez', 'blt', 'bltz', 'bltu', 'bne', 'bnez', 'call', 'csrr', 'csrc', 'csrci', 'csrrc', 'csrrci'
+                    'csrrs', 'csrrsi', 'csrrw', 'csrrwi', 'csrs', 'csrsi', 'csrw', 'csrwi', 'div', 'divu', 'divuw', 'divw', 'ebreak', 
+                    'ecall', 'fabs.d', 'fabs.s', 'fadd.d', 'fadd.s', 'fclass.d', 'fclass.s', 'fcvt.d.l', 'fcvt.d.lu', 'fcvt.d.s', 'fcvt.d.w',
+                    'fcvt.d.wu', 'fcvt.l.d', 'fcvt.l.s', 'fcvt.lu.d', 'fcvt.lu.s', 'fcvt.s.d', 'fcvt.s.l','fcvt.s.lu', 'fcvt.s.w', 'fcvt.s.wu', 
+                    'fcvt.w.d', 'fcvt.wu.d', 'fcvt.w.s', 'fcvt.wu.s', 'fdiv.d', 'fdiv.s', 'fence', 'fence.i', 'feq.d', 'feq.s', 'fld',
+                    'fle.d', 'fle.s', 'flt.d', 'flt.s', 'flw', 'fmadd.d', 'fmadd.s', 'fmax.d', 'fmax.s', 'fmin.d', 'fmin.s', 'fmsub.d', 'fmsub.s', 
+                    'fmul.d', 'fmul.s', 'fmv.d', 'fmv.d.x', 'fmv.s', 'fmv.w.x', 'fmv.x.d', 'fmv.x.w', 'fneg.d', 'fneg.s', 'fnmadd.d', 'fnmadd.s', 
+                    'fnmsub.d', 'fnmsub.d', 'frcsr', 'frflags', 'frrm', 'fscsr', 'fsd', 'fsflags', 'fsgnj.d', 'fsgnj.s', 'fsgnjn.d', 'fsgnjn.s', 
+                    'fsgnjx.d', 'fsgnjx.s', 'fsgnjx.s', 'fsqrt.s', 'fsrm', 'fsub.d', 'fsub.s', 'fsw', 'j', 'jal', 'jalr', 'jr', 'la', 'lb',
+                    'lbu', 'ld', 'lh', 'lhu', 'li', 'lla', 'lr.d', 'lr.w', 'lw', 'lwu', 'lui', 'mret', 'mul', 'mulh', 'mulhsu', 'mulhu', 'mulw', 
+                    'mv', 'neg', 'negw', 'nop', 'not', 'or', 'ori', 'rdcycle', 'rdcycleh', 'rdinstret', 'rdinstreth', 'rdtime', 'rdtimeh',
+                    'rem', 'remu', 'remuw', 'remw', 'ret', 'sb', 'sc.d', 'sc.w', 'sd', 'seqz', 'sext.w', 'sfence.vma', 'sgtz', 'sh', 'sw', 'sll', 
+                    'slli', 'slliw', 'sllw', 'slt', 'slti', 'sltiu', 'sltu', 'sltz', 'snez', 'sra', 'srai' , 'sraiw', 'sraw', 'sret', 'srl', 'srli', 
+                    'srliw', 'srlw', 'sub', 'subw', 'tail', 'wfi', 'xor', 'xori']
+
+def validateinstruction(rinstruction):
+#    print(f"instruction is {rinstruction}")
+    if rinstruction in instructionlist:
+        return True
+    else:
+        return False
+
+def validateformat(rformat):
+#    print(f"format is {rformat}")
+    if rformat in formatlist or rformat == 'all':
+        return True
+    else:
+        return False
+
+def main():
+    parser = argparse.ArgumentParser(prog="riscvisa", description="RISC-V ISA Helpdesk", usage="%(prog)s [-i]/[-f]")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-i", "--instruction", type=str, help="risc-v instruction")
+    group.add_argument("-f", "--format", type=str, help="risc-v formats, possible values - R/I/S/U/B/J/all")
+    group.add_argument("-r", "--register", type=str, help="risc-v registers and csr's")
+    arguments = parser.parse_args()
+
+    rinstruction = arguments.instruction
+    rformat = arguments.format
+
+    if not (rformat is None) and validateformat(rformat):
+        show_formats(rformat)
+
+    if not (rinstruction is None) and validateinstruction(rinstruction):
+        show_instruction(rinstruction)
+
+
+
+if __name__ == '__main__':
+    main()

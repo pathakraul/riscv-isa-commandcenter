@@ -37,6 +37,6 @@ Add the path into the PATH env variable or directly run using `./`.
 
 # TODO
 
-- [] Add registers support
-- [] Add support to take more than one instruction or registers as input.
-- [] Improve explanation of instructions and registers
+- [ ] Add registers support
+- [ ] Add support to take more than one instruction or registers as input.
+- [ ] Improve explanation of instructions and registers

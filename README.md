@@ -1,4 +1,4 @@
-## INTRODUCTION
+# INTRODUCTION
 
 Simple utility for referencing the RISC-V ISA, formats, instructions and registers informations.
 
@@ -9,14 +9,14 @@ Simple utility for referencing the RISC-V ISA, formats, instructions and registe
 Depends on >=python3.8
 Install `rich` python package `pip3 install rich`
 
-## ISA HELP INSTALLATION
+## PACKAGE INSTALLATION
 ```
 git clone https://github.com/pathakraul/riscv-isa-help
 cd riscv-isa-help
 chmod 777 riscvisa
 ```
 
-## USAGE
+# USAGE
 
 ```
 ./isa.py -f <R|I|S|U|B|J|all>
@@ -26,7 +26,7 @@ chmod 777 riscvisa
 ```
 
 
-## EXAMPLE
+# EXAMPLE
 ```
 ./isa.py -i add 
 
@@ -34,7 +34,7 @@ chmod 777 riscvisa
 ![](add-example.png)
 
 
-## TODO
+# TODO
 
 - [] Add registers support
 - [] Add support to take more than one instruction or registers as input.

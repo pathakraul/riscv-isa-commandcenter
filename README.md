@@ -2,7 +2,7 @@ Work In Progress
 
 # INTRODUCTION
 
-Simple utility for referencing the RISC-V ISA, formats, instructions and registers informations.
+Simple utility for referencing the RISC-V ISA, formats, instructions and registers informations right on the terminal
 
 
 # INSTALLATION
